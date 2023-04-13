@@ -28,7 +28,7 @@ async function start() {
   let min = 1
 
   for (let index = 1; index < 11; index++) {
-    //  This line sets up number of guesses to 11 times for computer (guesser)
+    //  This line sets up number of guesses to 10 times for computer (guesser)
 
     let guess = getRandomInt(min, max) //  Declare variable 'guess' & pass the values from variables min and max to set the range to be guessed (getRandomInt)
     console.log("My guess is " + guess); //  Print what the computer guesses each time through the for-loop

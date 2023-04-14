@@ -72,4 +72,5 @@ async function start () {
   console.log(`You failed miserably to guess my secret number, which was, of course, ${secret}. \n`)
 
   process.exit() // ends program after/outside the WHILE loop
-}
+  
+}   // end of async functionality?

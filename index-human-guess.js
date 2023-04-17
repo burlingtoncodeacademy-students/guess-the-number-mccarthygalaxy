@@ -1,3 +1,5 @@
+
+
 // Legacy code (previous versions): ---------- >
     // const max_guesses = 0
     // const min_number = 0
@@ -15,15 +17,19 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
+// -------------- Function to generate RND secret number based on range set 
+//          by user (min_number and max_number) below. --------------------------- >
+
 function getRandInt (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min // Function to generate random Secret Number
-}                                                            // based on range set by user min_number
-                                                             // and max_number below.
+  return Math.floor(Math.random() * (max - min + 1)) + min 
+}
+
+// -------------------------------------------------------------------------------- ^
 
 start()     
 
 async function start () {
-  
+    console.log('Welcome to the \'Guess the Number\' Game.')  
     const min_number = parseInt (await rl.question( // Parse/Get a NUMBER from the string input
         `Set range low number? `))
     const max_number = parseInt (await rl.question( // Parse/Get a NUMBER from the string input
@@ -32,22 +38,22 @@ async function start () {
     let guesses = 0   
     const secret = getRandInt(min_number, max_number) // Calls (above) function getRandInt to assign Secret Number
 
-// User Customization ----------------------------------->
+// User Customization ------------------------------------------------------->
 
   let guessSpan = parseFloat (await rl.question( // Needed to change from CONST so Math.abs & Math.ceil work
-    `How many guesses do you require? `))
+    `How many guesses do you require? `)) // declares guessSpan as a num of maximum guesses allowed
     if (!(Number.isInteger(guessSpan) && guessSpan > 0)){   // If a non whole positive integer is given
         console.log(`\nSmarty pants. ${guessSpan} is not a proper number.`) 
         guessSpan = Math.abs(guessSpan)     // takes any negative and gives absolute value of it
         guessSpan = Math.ceil(guessSpan)    // takes the value and whole integer up    
         console.log(`I rounded you up to ${guessSpan} number of guesses.\n`) 
     } // if number of guesses is proper, no action taken by this if (aka Conditional) statement
-    let max_guesses = guessSpan
-    let guessRemain = guessSpan - 1
+    let max_guesses = guessSpan //  
+    let guessRemain = guessSpan - 1 //  decrements guesses remaining
 
-// ^ User Customization ----------------------------------- ^
+// ^ User Customization ----------------------------------------------------- ^
 
-  while (guesses < max_guesses) {
+  while (guesses < max_guesses) { //  Keep going if guesses doesn't exceed max guesses
    
     const guess = await rl.question(
       `Guess a number between ${min_number} and ${max_number}.  `)
@@ -58,7 +64,7 @@ async function start () {
       console.log(`${guess} is too low! You have ${guessRemain} guesses remaining. \n`) 
       guesses = guesses + 1     // increments guess count
       guessRemain = guessRemain - 1 // decrements remaining guesses
-    } else if (guess > secret) {    // if guess LOWER than Secret
+    } else if (guess > secret) {    // if guess HIGHER than Secret
       console.log(`${guess} is too high! You have ${guessRemain} guesses remaining. \n`)
       guesses = guesses + 1     // increments guess count
       guessRemain = guessRemain - 1 // decrements remaining guesses
@@ -69,7 +75,7 @@ async function start () {
     }
   }
   // Outside the WHILE loop, the conclusion is -> incorrect guesses && ran out of guesses, ergo:
-  console.log(`You failed miserably to guess my secret number, which was, of course, ${secret}. \n`)
+  console.log(`You failed miserably to guess my secret number - which was, of course, ${secret}. \n`)
 
   process.exit() // ends program after/outside the WHILE loop
   
